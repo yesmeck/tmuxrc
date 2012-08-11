@@ -1,1 +1,218 @@
-My Page
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-eqiv='content-type' content='text/html;charset=utf-8'>
+    <title>tmux.conf</title>
+    <link rel=stylesheet href="http://jashkenas.github.com/docco/resources/docco.css">
+</head>
+<body>
+<div id=container>
+    <div id=background></div>
+    <table cellspacing=0 cellpadding=0>
+    <thead>
+      <tr>
+        <th class=docs><h1>tmux.conf</h1></th>
+        <th class=code></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr><td class='docs'><p>Setting the prefix from <code>C-b</code> to <code>C-a</code>.
+By remapping the <code>CapsLock</code> key to <code>Ctrl</code>,
+you can make triggering commands more comfottable!</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">set</span> -g prefix C-a
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Free the original <code>Ctrl-b</code> prefix keybinding.</p>
+
+</td><td class=code><div class=highlight><pre>
+unbind C-b
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Ensure that we can send <code>Ctrl-a</code> to other apps.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">bind </span>C-a send-prefix
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Reload the file with Prefix r.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">bind </span>r <span class="nb">source</span>-file ~/.tmux.conf <span class="se">\;</span> display <span class="s2">&quot;Reloaded!&quot;</span>
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Splitting panes.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">bind</span> | split-window -h
+<span class="nb">bind</span> - split-window -v
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Moving between panes.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">bind </span>h <span class="k">select</span>-pane -L
+<span class="nb">bind </span>j <span class="k">select</span>-pane -D
+<span class="nb">bind </span>k <span class="k">select</span>-pane -U
+<span class="nb">bind </span>l <span class="k">select</span>-pane -R
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Moveing between windows.
+Provided you've mapped your <code>CAPS LOCK</code> key to the <code>CTRL</code> key,
+you can now move between panes without moving your hands off the home row.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">bind</span> -r C-h <span class="k">select</span>-window -t :-
+<span class="nb">bind</span> -r C-l <span class="k">select</span>-window -t :+
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Pane resizing.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">bind</span> -r H resize-pane -L 5
+<span class="nb">bind</span> -r J resize-pane -D 5
+<span class="nb">bind</span> -r K resize-pane -U 5
+<span class="nb">bind</span> -r L resize-pane -R 5
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Maximize and restore a pane.</p>
+
+</td><td class=code><div class=highlight><pre>
+unbind Up
+<span class="nb">bind </span>Up new-window -d -n tmp <span class="se">\;</span> swap-pane -s tmp.1 <span class="se">\;</span> <span class="k">select</span>-window -t tmp
+unbind Down
+<span class="nb">bind </span>Down last-window <span class="se">\;</span> swap-pane -s tmp.1 <span class="se">\;</span> <span class="nb">kill</span>-window -t tmp
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Log output to a text file on demand.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">bind </span>P pipe-pane -o <span class="s2">&quot;cat &gt;&gt;~/#W.log&quot;</span> <span class="se">\;</span> display <span class="s2">&quot;Toggled logging to ~/#W.log&quot;</span>
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Vimlike copy mode.</p>
+
+</td><td class=code><div class=highlight><pre>
+unbind <span class="o">[</span>
+<span class="nb">bind </span>Escape copy-mode
+unbind p
+<span class="nb">bind </span>p paste-buffer
+<span class="nb">bind</span> -t vi-copy <span class="s1">&#39;v&#39;</span> begin-selection
+<span class="nb">bind</span> -t vi-copy <span class="s1">&#39;y&#39;</span> copy-selection
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Setting the delay between prefix and command.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">set</span> -sg escape-time 1
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Set the base index for windows to 1 instead of 0.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">set</span> -g base-index 1
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Set the base index for panes to 1 instead of 0.</p>
+
+</td><td class=code><div class=highlight><pre>
+setw -g pane-base-index 1
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Mouse support - set to on if you want to use the mouse.</p>
+
+</td><td class=code><div class=highlight><pre>
+setw -g mode-mouse off
+<span class="nb">set</span> -g mouse-select-pane off
+<span class="nb">set</span> -g mouse-resize-pane off
+<span class="nb">set</span> -g mouse-select-window off
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Set the default terminal mode to 256color mode.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">set</span> -g default-terminal <span class="s2">&quot;screen-256color&quot;</span>
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Enable activity alerts.</p>
+
+</td><td class=code><div class=highlight><pre>
+setw -g monitor-activity on
+<span class="nb">set</span> -g visual-activity on
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Pane colors.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">set</span> -g pane-border-fg green
+<span class="nb">set</span> -g pane-border-bg black
+<span class="nb">set</span> -g pane-active-border-fg white
+<span class="nb">set</span> -g pane-active-border-bg yellow
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Command / message line.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">set</span> -g message-fg white
+<span class="nb">set</span> -g message-bg black
+<span class="nb">set</span> -g message-attr bright
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Enable vi keys.</p>
+
+</td><td class=code><div class=highlight><pre>
+setw -g mode-keys vi
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Powerline.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">set</span>-option -g status on
+<span class="nb">set</span>-option -g status-interval 2
+<span class="nb">set</span>-option -g status-utf8 on
+<span class="nb">set</span>-option -g status-justify <span class="s2">&quot;centre&quot;</span>
+<span class="nb">set</span>-option -g status-left-length 60
+<span class="nb">set</span>-option -g status-right-length 90
+<span class="nb">set</span>-option -g status-left <span class="s2">&quot;#(~/.tmux/vendor/tmux-powerline/status-left.sh)&quot;</span>
+<span class="nb">set</span>-option -g status-right <span class="s2">&quot;#(~/.tmux/vendor/tmux-powerline/status-right.sh)&quot;</span>
+
+</pre></div></td></tr><tr><td class=docs>
+
+<p>Solarized color.</p>
+
+</td><td class=code><div class=highlight><pre>
+<span class="nb">source</span>-file ~/.tmux/vendor/tmux-colors-solarized/tmuxcolors.conf
+
+
+
+</pre></div></td></tr><tr><td class=docs>
+
+</td><td class=code><div class=highlight><pre>
+
+</pre></div></td></tr><tr><td class=docs></td><td class='code'></td></tr>
+    </tbody>
+    </table>
+</div>
+</body>
+</html>
