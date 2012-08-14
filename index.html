@@ -18,16 +18,11 @@
     <tbody>
         <tr><td class='docs'><p>Setting the prefix from <code>C-b</code> to <code>C-a</code>.
 By remapping the <code>CapsLock</code> key to <code>Ctrl</code>,
-you can make triggering commands more comfottable!</p>
+you can make triggering commands more comfottable!  set -g prefix C-a
+Free the original <code>Ctrl-b</code> prefix keybinding.</p>
 
 </td><td class=code><div class=highlight><pre>
-<span class="nb">set</span> -g prefix C-a
 
-</pre></div></td></tr><tr><td class=docs>
-
-<p>Free the original <code>Ctrl-b</code> prefix keybinding.</p>
-
-</td><td class=code><div class=highlight><pre>
 unbind C-b
 
 </pre></div></td></tr><tr><td class=docs>
@@ -185,17 +180,23 @@ setw -g mode-keys vi
 
 </pre></div></td></tr><tr><td class=docs>
 
-<p>Powerline.</p>
+<p>Status bar</p>
 
 </td><td class=code><div class=highlight><pre>
-<span class="nb">set</span>-option -g status on
-<span class="nb">set</span>-option -g status-interval 2
-<span class="nb">set</span>-option -g status-utf8 on
-<span class="nb">set</span>-option -g status-justify <span class="s2">&quot;centre&quot;</span>
-<span class="nb">set</span>-option -g status-left-length 60
-<span class="nb">set</span>-option -g status-right-length 90
-<span class="nb">set</span>-option -g status-left <span class="s2">&quot;#(~/.tmux/vendor/tmux-powerline/status-left.sh)&quot;</span>
-<span class="nb">set</span>-option -g status-right <span class="s2">&quot;#(~/.tmux/vendor/tmux-powerline/status-right.sh)&quot;</span>
+<span class="nb">set</span> -g status-left-length 52
+<span class="nb">set</span> -g status-right-length 451
+<span class="nb">set</span> -g status-fg white
+<span class="nb">set</span> -g status-bg colour234
+<span class="nb">set</span> -g window-status-activity-attr bold
+<span class="nb">set</span> -g pane-border-fg colour245
+<span class="nb">set</span> -g pane-active-border-fg colour39
+<span class="nb">set</span> -g message-fg colour16
+<span class="nb">set</span> -g message-bg colour221
+<span class="nb">set</span> -g message-attr bold
+<span class="nb">set</span> -g status-left <span class="s1">&#39;#[fg=colour235,bg=colour252,bold] ❐ #S#[fg=colour252,bg=colour238,nobold]⮀#[fg=colour245,bg=colour238,bold] #(whoami)#[fg=colour238,bg=colour234,nobold]⮀&#39;</span>
+<span class="nb">set</span> -g status-right <span class="s1">&#39;#[fg=colour39, bg=colour234]⮂#[fg=colour234,bg=colour39]#(uptime | grep -oP load.+) &#39;</span>
+<span class="nb">set</span> -g window-status-format <span class="s2">&quot;#[fg=white,bg=colour234] #I #W &quot;</span>
+<span class="nb">set</span> -g window-status-current-format <span class="s2">&quot;#[fg=colour234,bg=colour39]⮀#[fg=colour25,bg=colour39,noreverse,bold] #I ⮁ #W#[fg=colour39,bg=colour234,nobold]⮀&quot;</span>
 
 </pre></div></td></tr><tr><td class=docs>
 
