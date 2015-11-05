@@ -13,7 +13,7 @@ for i in $HOME/.tmux $HOME/.tmux.conf; do
   fi
 done
 
-git clone --recursive git://github.com/yesmeck/tmuxrc.git $HOME/.tmux \
+git clone git://github.com/yesmeck/tmuxrc.git $HOME/.tmux \
     || die "Could not clone the repository to ${HOME}/.tmux"
 
 ln -s $HOME/.tmux/tmux.conf $HOME/.tmux.conf
